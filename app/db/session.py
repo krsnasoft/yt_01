@@ -7,6 +7,13 @@ DATABASE_URL = "postgresql://postgres:root@localhost:5432/yt_01"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) 
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 # TEST CONNECTION
 if __name__ == "__main__":
     try:
